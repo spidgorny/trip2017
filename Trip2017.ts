@@ -1,11 +1,12 @@
 import {Point} from './Point';
+import {Route} from "./Route";
 // import {Promise} from 'promise-es6';
 
 export class Trip2017 {
 
 	map;
 
-	route;
+	routes: Route[] = [];
 
 	source = 'trip2017.json';
 
@@ -111,7 +112,9 @@ export class Trip2017 {
 			destination,
 			travelMode: 'driving',
 			callback: (e) => {
-				this.routeRetrieved(e);
+				const r = new Route(new Point(origin), new Point(destination));
+				r.setMap(this.map);
+				r.routeRetrieved(e);
 			}
 		});
 	}
@@ -139,7 +142,7 @@ export class Trip2017 {
 			for (let i = 1; i < this.points.length; i++) {
 				let destination = this.points[i];
 
-				console.log(source.title, '=>', destination.title);
+				//console.log(source.title, '=>', destination.title);
 				((source, destination) => {
 					chain = chain.then(() => {
 						this.fetchRoute(source, destination);
@@ -154,82 +157,12 @@ export class Trip2017 {
 	}
 
 	fetchRoute(source: Point, destination: Point) {
-		return new Promise((resolve, reject) => {
-			console.log(source.title, '->', destination.title);
-			//console.log(source.getLocation(), destination.getLocation());
-			this.map.getRoutes({
-				origin: source.getLocation(),
-				destination: destination.getLocation(),
-				travelMode: 'driving',
-				optimizeWaypoints: true,
-				// callback: this.routeRetrieved.bind(this),
-				error: (e) => {
-					console.error(e);
-					reject(e);
-				},
-				callback: (e) => {
-					this.routeRetrieved(e);
-					resolve(e);
-				}
-			});
-		});
-	}
-
-	routeRetrieved(e) {
-		//console.log('routeRetrieved', e);
-		this.route = new GMaps.Route({
-			map: this.map,
-			route: e[0],
-			strokeColor: '#336699',
-			strokeOpacity: 0.5,
-			strokeWeight: 10
-		});
-		//console.log(this.route);
-		this.renderRoute(this.route);
-	}
-
-	renderRoute(route) {
-		let distance = 0;
-		let time = 0;
-		for (let i = 0; i < route.steps.length; i++) {
-			route.forward();
-			distance += route.steps[i].distance.value;
-			time += route.steps[i].duration.value;
-		}
-		const km = (distance/1000).toFixed(2);
-		const hours = (time/60/60).toFixed(2);
-
-		let midIndex = this.getStepAtDistance(route.steps, distance / 2);
-		let middle = route.steps[midIndex];
-		//console.log(mid, middle);
-		let start = new Point({
-			lat: middle.start_point.lat(),
-			lon: middle.start_point.lng(),
-		});
-		let midWay = start.midwayTo(new Point({
-			lat: middle.end_point.lat(),
-			lon: middle.end_point.lng(),
-		}));
-
-		this.map.drawOverlay({
-			lat: midWay.lat,
-			lng: midWay.lon,
-			content: `<div class="routeLength">
-				${km} km, ${hours} h</div>`
-		});
-	}
-
-	getStepAtDistance(steps, midDistance) {
-		let distance = 0;
-		for (let i = 0; i < steps.length; i++) {
-			distance += steps[i].distance.value;
-			if (distance > midDistance) {
-				return i;
-			}
-		}
-
-		let midIndex = Math.floor(steps.length/2);
-		return midIndex;
+		//console.log(source.title, '->', destination.title);
+		//console.log(source.getLocation(), destination.getLocation());
+		let route = new Route(source, destination);
+		route.setMap(this.map);
+		this.routes.push(route);
+		return route.fetch();
 	}
 
 }
