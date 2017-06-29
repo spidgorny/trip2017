@@ -1,7 +1,9 @@
-import { Point } from './Point';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Point_1 = require("./Point");
 // import {Promise} from 'promise-es6';
-export class Trip2017 {
-    constructor() {
+var Trip2017 = (function () {
+    function Trip2017() {
         this.source = 'trip2017.json';
         this.points = [];
         // this.initMap();
@@ -12,13 +14,14 @@ export class Trip2017 {
             .then(this.initMap.bind(this))
             .then(this.showPlaces.bind(this))
             .then(this.fetchDistances.bind(this))
-            .catch(e => {
+            .catch(function (e) {
             console.error(e);
         });
     }
-    initMap() {
-        return new Promise((resolve, reject) => {
-            this.map = new GMaps({
+    Trip2017.prototype.initMap = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.map = new GMaps({
                 el: '#map',
                 // lat: -12.043333,
                 // lng: -77.028333,
@@ -32,12 +35,12 @@ export class Trip2017 {
                 streetViewControl: false,
                 // mapTypeControl: false,
                 // overviewMapControl: false,
-                click: (e) => {
-                    this.map.addMarker({
+                click: function (e) {
+                    _this.map.addMarker({
                         lat: e.latLng.lat(),
                         lng: e.latLng.lng(),
                         title: e.latLng.lat() + ',' + e.latLng.lng(),
-                        click: e => {
+                        click: function (e) {
                             console.log(e);
                         },
                     });
@@ -45,25 +48,26 @@ export class Trip2017 {
             });
             resolve();
         });
-    }
-    showPlaces() {
-        return new Promise((resolve, reject) => {
-            this.points.forEach(p => {
-                this.map.addMarker({
+    };
+    Trip2017.prototype.showPlaces = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.points.forEach(function (p) {
+                _this.map.addMarker({
                     lat: p.lat,
                     lng: p.lon,
                     title: p.title,
-                    click: e => {
+                    click: function (e) {
                         console.log(e);
                     },
                     point: p,
                 });
             });
-            this.map.fitZoom();
+            _this.map.fitZoom();
             resolve();
         });
-    }
-    drawRoute() {
+    };
+    Trip2017.prototype.drawRoute = function () {
         this.map.drawRoute({
             origin: [-12.044012922866312, -77.02470665341184],
             destination: [-12.090814532191756, -77.02271108990476],
@@ -72,15 +76,16 @@ export class Trip2017 {
             strokeOpacity: 0.6,
             strokeWeight: 6
         });
-    }
-    travelRoute() {
+    };
+    Trip2017.prototype.travelRoute = function () {
+        var _this = this;
         this.map.travelRoute({
             origin: [-12.044012922866312, -77.02470665341184],
             destination: [-12.090814532191756, -77.02271108990476],
             travelMode: 'driving',
-            step: (e) => {
+            step: function (e) {
                 console.log(e);
-                this.map.drawPolyline({
+                _this.map.drawPolyline({
                     path: e.path,
                     strokeColor: '#131540',
                     strokeOpacity: 0.6,
@@ -88,44 +93,47 @@ export class Trip2017 {
                 });
             }
         });
-    }
-    getRoutes() {
-        let origin = [-12.044012922866312, -77.02470665341184];
-        let destination = [-12.090814532191756, -77.02271108990476];
+    };
+    Trip2017.prototype.getRoutes = function () {
+        var _this = this;
+        var origin = [-12.044012922866312, -77.02470665341184];
+        var destination = [-12.090814532191756, -77.02271108990476];
         this.map.getRoutes({
-            origin,
-            destination,
+            origin: origin,
+            destination: destination,
             travelMode: 'driving',
-            callback: (e) => {
-                this.routeRetrieved(e);
+            callback: function (e) {
+                _this.routeRetrieved(e);
             }
         });
-    }
-    loadPoints() {
+    };
+    Trip2017.prototype.loadPoints = function () {
+        var _this = this;
         return fetch(this.source)
-            .then(r => r.json())
-            .then(points => {
-            points.forEach(p => {
-                this.points.push(new Point(p));
+            .then(function (r) { return r.json(); })
+            .then(function (points) {
+            points.forEach(function (p) {
+                _this.points.push(new Point_1.Point(p));
             });
         })
-            .then(() => {
-            console.log(this.points);
+            .then(function () {
+            console.log(_this.points);
         })
-            .catch(e => {
+            .catch(function (e) {
             console.error(e);
         });
-    }
-    fetchDistances() {
+    };
+    Trip2017.prototype.fetchDistances = function () {
+        var _this = this;
         //return new Promise((resolve, reject) => {
-        let chain = Promise.resolve();
-        let source = this.points[0];
-        for (let i = 1; i < this.points.length; i++) {
-            let destination = this.points[i];
+        var chain = Promise.resolve();
+        var source = this.points[0];
+        for (var i = 1; i < this.points.length; i++) {
+            var destination = this.points[i];
             console.log(source.title, '=>', destination.title);
-            ((source, destination) => {
-                chain = chain.then(() => {
-                    this.fetchRoute(source, destination);
+            (function (source, destination) {
+                chain = chain.then(function () {
+                    _this.fetchRoute(source, destination);
                 });
             })(source, destination);
             // next step
@@ -133,29 +141,30 @@ export class Trip2017 {
         }
         return chain;
         // });
-    }
-    fetchRoute(source, destination) {
-        return new Promise((resolve, reject) => {
+    };
+    Trip2017.prototype.fetchRoute = function (source, destination) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
             console.log(source.title, '->', destination.title);
             //console.log(source.getLocation(), destination.getLocation());
-            this.map.getRoutes({
+            _this.map.getRoutes({
                 origin: source.getLocation(),
                 destination: destination.getLocation(),
                 travelMode: 'driving',
                 optimizeWaypoints: true,
                 // callback: this.routeRetrieved.bind(this),
-                error: (e) => {
+                error: function (e) {
                     console.error(e);
                     reject(e);
                 },
-                callback: (e) => {
-                    this.routeRetrieved(e);
+                callback: function (e) {
+                    _this.routeRetrieved(e);
                     resolve(e);
                 }
             });
         });
-    }
-    routeRetrieved(e) {
+    };
+    Trip2017.prototype.routeRetrieved = function (e) {
         //console.log('routeRetrieved', e);
         this.route = new GMaps.Route({
             map: this.map,
@@ -166,37 +175,45 @@ export class Trip2017 {
         });
         //console.log(this.route);
         this.renderRoute(this.route);
-    }
-    renderRoute(route) {
-        let distance = 0;
-        let time = 0;
-        for (let i = 0; i < route.steps.length; i++) {
+    };
+    Trip2017.prototype.renderRoute = function (route) {
+        var distance = 0;
+        var time = 0;
+        for (var i = 0; i < route.steps.length; i++) {
             route.forward();
             distance += route.steps[i].distance.value;
             time += route.steps[i].duration.value;
         }
-        const km = (distance / 1000).toFixed(2);
-        const hours = (time / 60 / 60).toFixed(2);
-        let midIndex = this.getStepAtDistance(route.steps, distance / 2);
-        let middle = route.steps[midIndex];
+        var km = (distance / 1000).toFixed(2);
+        var hours = (time / 60 / 60).toFixed(2);
+        var midIndex = this.getStepAtDistance(route.steps, distance / 2);
+        var middle = route.steps[midIndex];
         //console.log(mid, middle);
-        let start = middle.start_location;
-        this.map.drawOverlay({
-            lat: start.lat(),
-            lng: start.lng(),
-            content: `<div class="routeLength">
-				${km} km, ${hours} h</div>`
+        var start = new Point_1.Point({
+            lat: middle.start_point.lat(),
+            lon: middle.start_point.lng(),
         });
-    }
-    getStepAtDistance(steps, midDistance) {
-        let distance = 0;
-        for (let i = 0; i < steps.length; i++) {
+        var midWay = start.midwayTo(new Point_1.Point({
+            lat: middle.end_point.lat(),
+            lon: middle.end_point.lng(),
+        }));
+        this.map.drawOverlay({
+            lat: midWay.lat,
+            lng: midWay.lon,
+            content: "<div class=\"routeLength\">\n\t\t\t\t" + km + " km, " + hours + " h</div>"
+        });
+    };
+    Trip2017.prototype.getStepAtDistance = function (steps, midDistance) {
+        var distance = 0;
+        for (var i = 0; i < steps.length; i++) {
             distance += steps[i].distance.value;
             if (distance > midDistance) {
                 return i;
             }
         }
-        let midIndex = Math.floor(steps.length / 2);
+        var midIndex = Math.floor(steps.length / 2);
         return midIndex;
-    }
-}
+    };
+    return Trip2017;
+}());
+exports.Trip2017 = Trip2017;

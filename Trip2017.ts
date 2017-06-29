@@ -202,11 +202,18 @@ export class Trip2017 {
 		let midIndex = this.getStepAtDistance(route.steps, distance / 2);
 		let middle = route.steps[midIndex];
 		//console.log(mid, middle);
-		let start = middle.start_location;
+		let start = new Point({
+			lat: middle.start_point.lat(),
+			lon: middle.start_point.lng(),
+		});
+		let midWay = start.midwayTo(new Point({
+			lat: middle.end_point.lat(),
+			lon: middle.end_point.lng(),
+		}));
 
 		this.map.drawOverlay({
-			lat: start.lat(),
-			lng: start.lng(),
+			lat: midWay.lat,
+			lng: midWay.lon,
 			content: `<div class="routeLength">
 				${km} km, ${hours} h</div>`
 		});

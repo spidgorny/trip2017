@@ -8,8 +8,15 @@ export class Point {
 
 	constructor(source) {
 		this.lat = source.lat;
-		this.lon = source.lng;
-		this.title = source.title;
+		if ('lng' in source) {
+			this.lon = source.lng;
+		}
+		if ('lon' in source) {
+			this.lon = source.lon;
+		}
+		if ('title' in source) {
+			this.title = source.title;
+		}
 	}
 
 	/**
@@ -18,6 +25,12 @@ export class Point {
 	 */
 	public getLocation() {
 		return [this.lat, this.lon];
+	}
+
+	public midwayTo(p2: Point) {
+		let lat = (this.lat + p2.lat) / 2;
+		let lon = (this.lon + p2.lon) / 2;
+		return new Point({lat, lon});
 	}
 
 }
