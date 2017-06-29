@@ -1,18 +1,8 @@
 [
     {
-        "lat": 48.6360166,
-        "lng": -1.5111145,
-        "title": "Mont Saint-Michel"
-    },
-    {
-        "lat": 47.5925782,
-        "lng": -3.0825425,
-        "title": "Alignements de Carnac"
-    },
-    {
-        "lat": 44.5966423,
-        "lng": -1.209374,
-        "title": "Dune du Pilat"
+        "lat": 50.15,
+        "lng": 8.70,
+        "title": "Frankfurt"
     },
     {
         "lat": 48.8722344,
@@ -20,9 +10,44 @@
         "title": "Disneyland Paris"
     },
     {
-        "lat": 43.2060816,
-        "lng": 2.3641961,
-        "title": "Cit\u00e9 de Carcassonne"
+        "lat": 49.7066,
+        "lng": 0.194449,
+        "title": "The Cliffs at Etretat"
+    },
+    {
+        "lat": 48.63436211398223,
+        "lng": -1.51137113571167,
+        "title": "Mont Saint-Michel"
+    },
+    {
+        "lat": 48.8276424,
+        "lng": -3.51602,
+        "title": "C\u00f4te de Granit Rose"
+    },
+    {
+        "lat": 47.5925782,
+        "lng": -3.0825425,
+        "title": "Alignements de Carnac"
+    },
+    {
+        "lat": 47.205581,
+        "lng": -1.564041,
+        "title": "Les Machines de l'\u00eele"
+    },
+    {
+        "lat": 44.858473,
+        "lng": 1.749791,
+        "title": "Padirac Cave"
+    },
+    {
+        "lat": 44.5966423,
+        "lng": -1.209374,
+        "title": "Dune du Pilat"
+    },
+    {
+        "lat": 42.6970942,
+        "lng": -0.0077322,
+        "title": "Cirque de Gavarnie"
     },
     {
         "lat": 42.5063174,
@@ -35,39 +60,24 @@
         "title": "Tour Magdala"
     },
     {
-        "lat": 48.8276424,
-        "lng": -3.51602,
-        "title": "C\u00f4te de Granit Rose"
+        "lat": 43.2060816,
+        "lng": 2.3641961,
+        "title": "Cit\u00e9 de Carcassonne"
     },
     {
-        "lat": 42.6970942,
-        "lng": -0.0077322,
-        "title": "Cirque de Gavarnie"
-    },
-    {
-        "lat": 49.7066,
-        "lng": 0.194449,
-        "title": "The Cliffs at Etretat"
-    },
-    {
-        "lat": 47.205581,
-        "lng": -1.564041,
-        "title": "Les Machines de l'\u00eele"
-    },
-    {
-        "lat": 44.1735242,
-        "lng": 5.2784376,
-        "title": "Mont Ventoux"
-    },
-    {
-        "lat": 44.858473,
-        "lng": 1.749791,
-        "title": "Padirac Cave"
+        "lat": 43.907475,
+        "lng": 3.744297,
+        "title": "Grotte des Demoiselles"
     },
     {
         "lat": 44.759629,
         "lng": 4.5624426,
         "title": "Ardeche"
+    },
+    {
+        "lat": 44.1735242,
+        "lng": 5.2784376,
+        "title": "Mont Ventoux"
     },
     {
         "lat": 43.7613593,
@@ -78,10 +88,5 @@
         "lat": 44.904888,
         "lng": 5.8159599,
         "title": "Demoiselles Coiff\u00e9es"
-    },
-    {
-        "lat": 43.907475,
-        "lng": 3.744297,
-        "title": "Grotte des Demoiselles"
     }
 ]
