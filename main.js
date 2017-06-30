@@ -1,4 +1,4 @@
-import {Trip2017} from './Trip2017';
+import {Trip2017} from './src/Trip2017';
 
 $(document).ready(() => {
 	let trip = new Trip2017();

@@ -1,4 +1,6 @@
 import {Point} from "./Point";
+// import {GMaps} from './declare.GMaps';
+const GMaps: any = require('gmaps');
 
 export class Route {
 

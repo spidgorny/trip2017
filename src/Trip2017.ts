@@ -1,6 +1,8 @@
 import {Point} from './Point';
 import {Route} from "./Route";
 // import {Promise} from 'promise-es6';
+// import {GMaps} from './declare.GMaps';
+const GMaps: any = require('gmaps');
 
 export class Trip2017 {
 
@@ -8,7 +10,7 @@ export class Trip2017 {
 
 	routes: Route[] = [];
 
-	source = 'trip2017.json';
+	source = 'assets/trip2017.json';
 
 	points: Point[] = [];
 

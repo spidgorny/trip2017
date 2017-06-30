@@ -1,10 +1,14 @@
-import { Point } from './Point';
-import { Route } from "./Route";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Point_1 = require("./Point");
+const Route_1 = require("./Route");
 // import {Promise} from 'promise-es6';
-export class Trip2017 {
+// import {GMaps} from './declare.GMaps';
+const GMaps = require('gmaps');
+class Trip2017 {
     constructor() {
         this.routes = [];
-        this.source = 'trip2017.json';
+        this.source = 'assets/trip2017.json';
         this.points = [];
         // this.initMap();
         // trip.drawRoute();
@@ -99,7 +103,7 @@ export class Trip2017 {
             destination,
             travelMode: 'driving',
             callback: (e) => {
-                const r = new Route(new Point(origin), new Point(destination));
+                const r = new Route_1.Route(new Point_1.Point(origin), new Point_1.Point(destination));
                 r.setMap(this.map);
                 r.routeRetrieved(e);
             }
@@ -110,7 +114,7 @@ export class Trip2017 {
             .then(r => r.json())
             .then(points => {
             points.forEach(p => {
-                this.points.push(new Point(p));
+                this.points.push(new Point_1.Point(p));
             });
         })
             .then(() => {
@@ -141,9 +145,10 @@ export class Trip2017 {
     fetchRoute(source, destination) {
         //console.log(source.title, '->', destination.title);
         //console.log(source.getLocation(), destination.getLocation());
-        let route = new Route(source, destination);
+        let route = new Route_1.Route(source, destination);
         route.setMap(this.map);
         this.routes.push(route);
         return route.fetch();
     }
 }
+exports.Trip2017 = Trip2017;

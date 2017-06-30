@@ -1,5 +1,9 @@
-import { Point } from "./Point";
-export class Route {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Point_1 = require("./Point");
+// import {GMaps} from './declare.GMaps';
+const GMaps = require('gmaps');
+class Route {
     constructor(start, end) {
         this.start = start;
         this.end = end;
@@ -52,11 +56,11 @@ export class Route {
         let midIndex = this.getStepAtDistance(route.steps, distance / 2);
         let middle = route.steps[midIndex];
         //console.log(mid, middle);
-        let start = new Point({
+        let start = new Point_1.Point({
             lat: middle.start_point.lat(),
             lon: middle.start_point.lng(),
         });
-        let midWay = start.midwayTo(new Point({
+        let midWay = start.midwayTo(new Point_1.Point({
             lat: middle.end_point.lat(),
             lon: middle.end_point.lng(),
         }));
@@ -79,3 +83,4 @@ export class Route {
         return midIndex;
     }
 }
+exports.Route = Route;

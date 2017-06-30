@@ -1,4 +1,6 @@
-export class Point {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Point {
     constructor(source) {
         // lat
         if ('lat' in source) {
@@ -35,3 +37,4 @@ export class Point {
         return new Point({ lat, lon });
     }
 }
+exports.Point = Point;
